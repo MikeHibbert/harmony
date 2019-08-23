@@ -570,6 +570,8 @@ func (node *Node) PostConsensusProcessing(newBlock *types.Block) {
 		return
 	}
 
+	// Update last consensus time for metrics
+	node.lastConsensusTime = time.Now().Unix()
 	if node.Consensus.PubKey.IsEqual(node.Consensus.LeaderPubKey) {
 		node.BroadcastNewBlock(newBlock)
 		node.BroadcastCrossLinkHeader(newBlock)
